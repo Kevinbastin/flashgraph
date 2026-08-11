@@ -1,0 +1,34 @@
+# Build artifacts
+*.o
+*.so
+*.a
+*.dylib
+build/
+cmake-build-*/
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.egg-info/
+dist/
+*.egg
+
+# Jupyter
+.ipynb_checkpoints/
+
+# NVIDIA profiling
+*.ncu-rep
+*.nsys-rep
+*.qdrep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
