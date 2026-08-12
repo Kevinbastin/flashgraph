@@ -39,6 +39,8 @@
  * Mismatches throw std::runtime_error with diagnostic messages.
  */
 
+#include <cuda_runtime.h>
+#include <cuda_fp16.h>
 #include <torch/extension.h>
 #include <pybind11/pybind11.h>
 
