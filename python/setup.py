@@ -46,20 +46,10 @@ setup(
             extra_compile_args={
                 # C++ flags
                 "cxx": ["-O2", "-std=c++17"],
-                # CUDA flags
+                # CUDA flags (PyTorch CUDAExtension automatically detects active GPU arch)
                 "nvcc": [
                     "--use_fast_math",
                     "-std=c++17",
-                    # Generate code for common GPU architectures
-                    # T4 (Turing, sm_75) — common in Colab
-                    # A100 (Ampere, sm_80) — Colab Pro
-                    # V100 (Volta, sm_70) — older Colab
-                    "-gencode=arch=compute_70,code=sm_70",
-                    "-gencode=arch=compute_75,code=sm_75",
-                    "-gencode=arch=compute_80,code=sm_80",
-                    "-gencode=arch=compute_86,code=sm_86",
-                    "-gencode=arch=compute_89,code=sm_89",
-                    "-gencode=arch=compute_90,code=sm_90",
                 ],
             },
         )
