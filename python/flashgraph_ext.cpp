@@ -256,7 +256,7 @@ std::tuple<torch::Tensor, double> quantize_weights(torch::Tensor weight) {
  * Runs warmup iterations followed by timed iterations.
  * Returns the average time per iteration in milliseconds.
  */
-double benchmark(int M, int K, int N, int warmup, int iterations) {
+double benchmark_kernel(int M, int K, int N, int warmup, int iterations) {
     auto input = torch::randn({M, K}, torch::dtype(torch::kFloat16).device(torch::kCUDA));
     auto weight = torch::randint(-128, 127, {N, K}, torch::dtype(torch::kInt8).device(torch::kCUDA));
     auto rms_weight = torch::ones({K}, torch::dtype(torch::kFloat16).device(torch::kCUDA));
@@ -335,7 +335,16 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
         py::arg("weight")
     );
 
-    m.def("benchmark", &benchmark,
+    m.def("benchmark", &benchmark_kernel,
+        "Benchmark the fused kernel. Returns avg ms per iteration.",
+        py::arg("M") = 128,
+        py::arg("K") = 256,
+        py::arg("N") = 512,
+        py::arg("warmup") = 10,
+        py::arg("iterations") = 100
+    );
+
+    m.def("benchmark_kernel", &benchmark_kernel,
         "Benchmark the fused kernel. Returns avg ms per iteration.",
         py::arg("M") = 128,
         py::arg("K") = 256,
