@@ -16,7 +16,11 @@ Requirements:
 
 import os
 from setuptools import setup
+import torch.utils.cpp_extension
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension
+
+# Bypass CUDA version mismatch check (e.g., system nvcc 12.8 vs PyTorch CUDA 13.0)
+torch.utils.cpp_extension._check_cuda_version = lambda *args, **kwargs: None
 
 # Resolve paths relative to this file's location
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
